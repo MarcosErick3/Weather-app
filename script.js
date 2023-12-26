@@ -16,6 +16,7 @@ const search_input = document.querySelector('.form-control');
 const search_button = document.querySelector('.btn');
 const low_high = document.querySelector('.low-high');
 
+
 window.addEventListener('load', () => {
     //if ("geolocation" in navigator)
     if (navigator.geolocation) {
@@ -51,7 +52,7 @@ function coordResults(lat, long) {
         });
 }
 
-search_button.addEventListener('click', function() {
+search_button.addEventListener('click', function () {
     searchResults(search_input.value)
 })
 
@@ -80,25 +81,43 @@ function searchResults(city) {
 }
 
 function displayResults(weather) {
-    console.log(weather)
+    updateLocation(weather);
+    updateDate();
+    updateWeatherIcon(weather);
+    updateTemperature(weather);
+    updateWeatherDescription(weather);
+    updateMinMaxTemperature(weather);
+}
 
+function updateLocation(weather) {
     city.innerText = `${weather.name}, ${weather.sys.country}`;
+}
 
+function updateDate() {
     let now = new Date();
     date.innerText = dateBuilder(now);
+}
 
+function updateWeatherIcon(weather) {
     let iconName = weather.weather[0].icon;
     container_img.innerHTML = `<img src="./icons/${iconName}.png">`;
-
-    let temperature = `${Math.round(weather.main.temp)}`
-    temp_number.innerHTML = temperature;
-    temp_unit.innerHTML = `°c`;
-
-    weather_tempo = weather.weather[0].description;
-    weather_t.innerText = capitalizeFirstLetter(weather_tempo)
-
-    low_high.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(weather.main.temp_max)}°c`;
 }
+
+function updateTemperature(weather) {
+    let temperature = `${Math.round(weather.main.temp)}`;
+    temp_number.innerHTML = temperature;
+    temp_unit.innerHTML = `°C`;
+}
+
+function updateWeatherDescription(weather) {
+    let weatherDescription = capitalizeFirstLetter(weather.weather[0].description);
+    weather_t.innerText = weatherDescription;
+}
+
+function updateMinMaxTemperature(weather) {
+    low_high.innerText = `${Math.round(weather.main.temp_min)}°C / ${Math.round(weather.main.temp_max)}°C`;
+}
+
 
 function dateBuilder(d) {
     let days = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
@@ -114,19 +133,21 @@ function dateBuilder(d) {
 
 container_temp.addEventListener('click', changeTemp)
 function changeTemp() {
-    temp_number_now = temp_number.innerHTML
+    let currentTemperature = parseFloat(temp_number.innerHTML);
 
-    if (temp_unit.innerHTML === "°c") {
-        let f = (temp_number_now * 1.8) + 32
-        temp_unit.innerHTML = "°f"
-        temp_number.innerHTML = Math.round(f)
-    }
-    else {
-        let c = (temp_number_now - 32) / 1.8
-        temp_unit.innerHTML = "°c"
-        temp_number.innerHTML = Math.round(c)
+    if (temp_unit.innerHTML === "°C") {
+        // Convertendo para Fahrenheit
+        let fahrenheitTemperature = (currentTemperature * 1.8) + 32;
+        temp_unit.innerHTML = "°F";
+        temp_number.innerHTML = Math.round(fahrenheitTemperature);
+    } else {
+        // Convertendo para Celsius
+        let celsiusTemperature = (currentTemperature - 32) / 1.8;
+        temp_unit.innerHTML = "°C";
+        temp_number.innerHTML = Math.round(celsiusTemperature);
     }
 }
+
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);

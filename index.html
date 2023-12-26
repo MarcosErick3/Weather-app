@@ -21,25 +21,26 @@
                 TEMPO E TEMPERATURA
             </div>
             <div class="card-body">
-                <div class="city">Cidade Exemplo, BR</div>
-                <div class="date">Terça, 1 Dezembro 2020</div>
-                <div class="container-img">
-                    <img src="./icons/unknown.png">
+                <div class="city" id="city">Cidade Exemplo, BR</div>
+                <div class="date" id="date">Terça, 1 Dezembro 2020</div>
+                <div class="container-img" id="container-img">
+                    <img src="./icons/unknown.png" id="weather-icon">
                 </div>
-                <div class="container-temp mx-4 my-3">
-                    <div>22</div>
-                    <span>°c</span>
+                <div class="container-temp mx-4 my-3" id="container-temp">
+                    <div id="temp-number">22</div>
+                    <span id="temp-unit">°C</span>
                 </div>
-                <div class="weather py-2">Nublado</div>
-                <div class="low-high">22°c / 23°c</div>
+                <div class="weather py-2" id="weather-description">Nublado</div>
+                <div class="low-high" id="low-high">22°C / 23°C</div>
             </div>
 
             <div class="card-footer bg-white">
                 <div class="input-group ">
-                    <input type="text" class="form-control bg-light" placeholder="digite o nome da cidade"
-                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <input type="text" class="form-control bg-light"
+                        placeholder="Digite o nome da cidade, estado ou país" aria-label="Recipient's username"
+                        aria-describedby="button-addon2" id="search-input">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-warning text-dark" type="button" id="button-addon2">
+                        <button class="btn btn-outline-warning text-dark" type="button" id="search-button">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
